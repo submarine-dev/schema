@@ -1,0 +1,129 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "subscription.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Subscription"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/subscriptions": {
+      "get": {
+        "operationId": "Subscription_GetSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionsReplay"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "user_id はユーザの固有ID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Subscription"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1GetSubscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id はプランのID (ユニークな値になる)"
+        },
+        "subscriptionName": {
+          "type": "string",
+          "title": "subscription_name はサブスクリプションの名前"
+        },
+        "icon": {
+          "type": "string",
+          "title": "icon はアイコンのリンク的な？"
+        },
+        "plan": {
+          "type": "string",
+          "title": "planはサブスクリプションのプラン"
+        },
+        "monthlyPrice": {
+          "type": "integer",
+          "format": "int32",
+          "title": "monthly_price は月額の価格"
+        },
+        "paymentDate": {
+          "type": "string",
+          "title": "payment_date は支払日"
+        }
+      }
+    },
+    "v1GetSubscriptionsReplay": {
+      "type": "object",
+      "properties": {
+        "totalPayment": {
+          "type": "integer",
+          "format": "int32",
+          "title": "total_payment は合計金額が入る"
+        },
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GetSubscription"
+          },
+          "title": "subscriptions はその月のサブスクの配列が入る"
+        }
+      }
+    }
+  }
+}

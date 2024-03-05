@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package submarine_api.v1;
+
+option go_package = "submarine_api/v1";
+
+import "google/api/annotations.proto";
+// import "google/protobuf/empty.proto";
+
+service Subscription {
+    rpc GetSubscriptions(GetSubscriptionsQuery) returns (GetSubscriptionsReplay) {
+        option (google.api.http) = {
+            get: "/subscriptions"
+        };
+    }
+};
+
+message GetSubscriptionsQuery {
+    // user_id はユーザの固有ID
+    string user_id = 1;
+}
+
+message GetSubscription {
+    // id はプランのID (ユニークな値になる)
+    string id = 1;
+    // subscription_name はサブスクリプションの名前
+    string subscription_name = 2;
+    // icon はアイコンのリンク的な？
+    string icon = 3;
+    // planはサブスクリプションのプラン
+    string plan = 4;
+    // monthly_price は月額の価格
+    int32 monthly_price = 5;
+    // payment_date は支払日
+    string payment_date = 6;
+}
+
+message GetSubscriptionsReplay {
+    // total_payment は合計金額が入る
+    int32 total_payment = 1;
+    // subscriptions はその月のサブスクの配列が入る
+    repeated GetSubscription subscriptions = 2;
+}
