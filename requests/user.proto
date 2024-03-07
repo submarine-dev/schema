@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package submarine_api.v1;
+
+option go_package = "submarine_api/v1";
+
+message CreateUserSubscriptionRequest {
+    string user_id = 1;
+    string subscription_id = 2;
+    string plan_id = 3;
+}
+
+message UpdateUserSubscriptionRequest {
+    string user_id = 1;
+    string user_subscription_id = 2;
+    string plan_id = 3;
+}

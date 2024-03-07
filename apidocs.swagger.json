@@ -6,7 +6,10 @@
   },
   "tags": [
     {
-      "name": "Subscription"
+      "name": "SubscriptionService"
+    },
+    {
+      "name": "UserSubscriptions"
     }
   ],
   "consumes": [
@@ -18,7 +21,8 @@
   "paths": {
     "/subscriptions": {
       "get": {
-        "operationId": "Subscription_GetSubscriptions",
+        "summary": "GetSubscriptions はアプリに対応しているサブスクリプションをすべて返す",
+        "operationId": "SubscriptionService_GetSubscriptions",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -43,12 +47,343 @@
           }
         ],
         "tags": [
-          "Subscription"
+          "SubscriptionService"
+        ]
+      },
+      "post": {
+        "summary": "CreateSubscription は新しいサブスクリプションのマスタを作る",
+        "operationId": "SubscriptionService_CreateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Subscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SubscriptionService"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}": {
+      "get": {
+        "summary": "GetSubscription は任意のサブスクリプションを返す",
+        "operationId": "SubscriptionService_GetSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Subscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id はサブスクリプションの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SubscriptionService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteSubscription は任意のサブスクリプションを削除する",
+        "operationId": "SubscriptionService_DeleteSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id はサブスクリプションの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SubscriptionService"
+        ]
+      },
+      "put": {
+        "summary": "UpdateSubscription は任意のサブスクリプションを更新する",
+        "operationId": "SubscriptionService_UpdateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Subscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SubscriptionServiceUpdateSubscriptionBody"
+            }
+          }
+        ],
+        "tags": [
+          "SubscriptionService"
+        ]
+      }
+    },
+    "/users/{userId}/subscriptions": {
+      "get": {
+        "summary": "GetUserSubscriptions はユーザが登録しているサブスクリプションを取得する",
+        "operationId": "UserSubscriptions_GetUserSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserSubscriptionsReplay"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "user_id はユーザの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserSubscriptions"
+        ]
+      },
+      "post": {
+        "summary": "CreateUserSubscription はユーザがサブスクリプションを登録する",
+        "operationId": "UserSubscriptions_CreateUserSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UserSubscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSubscriptionsCreateUserSubscriptionBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserSubscriptions"
+        ]
+      }
+    },
+    "/users/{userId}/subscriptions/{userSubscriptionId}": {
+      "get": {
+        "summary": "GetSubscription はユーザが登録しているサブスクリプションを取得する",
+        "operationId": "UserSubscriptions_GetSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UserSubscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "user_id はユーザの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userSubscriptionId",
+            "description": "user_subscription_id はユーザが登録してるサブスクリプションの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserSubscriptions"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteSubscription はユーザが登録しているサブスクリプションを削除する",
+        "operationId": "UserSubscriptions_DeleteSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "user_id はユーザの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userSubscriptionId",
+            "description": "user_subscription_id はユーザが登録してるサブスクリプションの固有ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserSubscriptions"
+        ]
+      },
+      "put": {
+        "summary": "UpdateSubscription はユーザが登録しているサブスクリプションを更新する",
+        "operationId": "UserSubscriptions_UpdateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UserSubscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userSubscriptionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UserSubscriptionsUpdateSubscriptionBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserSubscriptions"
         ]
       }
     }
   },
   "definitions": {
+    "UserSubscriptionsCreateUserSubscriptionBody": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string"
+        },
+        "planId": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -77,7 +412,146 @@
         }
       }
     },
-    "v1GetSubscription": {
+    "v1CreateSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "subscriptionName": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "unsubscribeLink": {
+          "type": "string"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1PlanRequest"
+          }
+        }
+      }
+    },
+    "v1GetSubscriptionsReplay": {
+      "type": "object",
+      "properties": {
+        "subscriptionMaster": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SubscriptionMaster"
+          }
+        }
+      }
+    },
+    "v1GetUserSubscriptionsReplay": {
+      "type": "object",
+      "properties": {
+        "totalPayment": {
+          "type": "integer",
+          "format": "int32",
+          "title": "total_payment は合計金額が入る"
+        },
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UserSubscription"
+          },
+          "title": "subscriptions はその月のサブスクの配列が入る"
+        }
+      }
+    },
+    "v1Plan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "planName": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1PlanRequest": {
+      "type": "object",
+      "properties": {
+        "planName": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1Subscription": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string"
+        },
+        "subscriptionName": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "unsubscribeLink": {
+          "type": "string"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Plan"
+          }
+        }
+      }
+    },
+    "v1SubscriptionMaster": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "subscriptionName": {
+          "type": "string",
+          "title": "subscription_name はサブスクリプションの名前"
+        },
+        "icon": {
+          "type": "string",
+          "title": "icon はアイコンのリンク的な？"
+        }
+      }
+    },
+    "v1SubscriptionServiceUpdateSubscriptionBody": {
+      "type": "object",
+      "properties": {
+        "subscriptionName": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "unsubscribeLink": {
+          "type": "string"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Plan"
+          }
+        }
+      }
+    },
+    "v1UserSubscription": {
       "type": "object",
       "properties": {
         "id": {
@@ -104,24 +578,18 @@
         "paymentDate": {
           "type": "string",
           "title": "payment_date は支払日"
+        },
+        "startedAt": {
+          "type": "string",
+          "title": "started_at はサブスクリプションの開始日"
         }
       }
     },
-    "v1GetSubscriptionsReplay": {
+    "v1UserSubscriptionsUpdateSubscriptionBody": {
       "type": "object",
       "properties": {
-        "totalPayment": {
-          "type": "integer",
-          "format": "int32",
-          "title": "total_payment は合計金額が入る"
-        },
-        "subscriptions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1GetSubscription"
-          },
-          "title": "subscriptions はその月のサブスクの配列が入る"
+        "planId": {
+          "type": "string"
         }
       }
     }

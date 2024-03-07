@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package submarine_api.v1;
+
+option go_package = "submarine_api/v1";
+
+
+message Plan {
+    string id = 1;
+    string plan_name = 2;
+    int32 price = 3;
+}
+
+message Subscription {
+    string subscription_id = 1;
+    string subscription_name = 2;
+    string icon = 3;
+    string unsubscribe_link = 4;
+    repeated Plan plans = 5;
+}

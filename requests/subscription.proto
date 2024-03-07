@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package submarine_api.v1;
+
+option go_package = "submarine_api/v1";
+
+message SubscriptionID {
+    // subscription_id はサブスクリプションの固有ID
+    string subscription_id = 1;
+}
+
+message PlanRequest {
+    string plan_name =1;
+    int32 price = 2;
+}
+
+message CreateSubscriptionRequest {
+    string subscription_name = 2;
+    string icon = 3;
+    string unsubscribe_link = 4;
+    repeated PlanRequest plans = 5;
+}

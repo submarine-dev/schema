@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package submarine_api.v1;
+
+option go_package = "submarine_api/v1";
+
+message UserID {
+    // user_id はユーザの固有ID
+    string user_id = 1;
+}
+
+message UserSubscriptionRequest {
+    // user_id はユーザの固有ID
+    string user_id = 1;
+
+    // user_subscription_id はユーザが登録してるサブスクリプションの固有ID
+    string user_subscription_id = 2;
+}

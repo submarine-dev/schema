@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package submarine_api.v1;
+
+option go_package = "submarine_api/v1";
+
+import "google/api/annotations.proto";
+import "requests/uid.proto";
+import "requests/user.proto";
+import "response/user.proto";
+import "google/protobuf/empty.proto";
+
+service UserSubscriptions {
+    // GetUserSubscriptions はユーザが登録しているサブスクリプションを取得する
+    rpc GetUserSubscriptions(UserID) returns (GetUserSubscriptionsReplay) {
+        option (google.api.http) = {
+            get: "/users/{user_id}/subscriptions"
+        };
+    }
+
+    // CreateUserSubscription はユーザがサブスクリプションを登録する
+    rpc CreateUserSubscription(CreateUserSubscriptionRequest) returns (UserSubscription) {
+        option (google.api.http) = {
+            post: "/users/{user_id}/subscriptions"
+            body: "*"
+        };
+    }
+
+    // GetSubscription はユーザが登録しているサブスクリプションを取得する
+    rpc GetSubscription(UserSubscriptionRequest) returns (UserSubscription) {
+        option (google.api.http) = {
+            get: "/users/{user_id}/subscriptions/{user_subscription_id}"
+        };
+    }
+
+    // UpdateSubscription はユーザが登録しているサブスクリプションを更新する
+    rpc UpdateSubscription(UpdateUserSubscriptionRequest) returns (UserSubscription) {
+        option (google.api.http) = {
+            put: "/users/{user_id}/subscriptions/{user_subscription_id}"
+            body: "*"
+        };
+    }
+
+    // DeleteSubscription はユーザが登録しているサブスクリプションを削除する
+    rpc DeleteSubscription(UserSubscriptionRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/users/{user_id}/subscriptions/{user_subscription_id}"
+        };
+    }
+}
