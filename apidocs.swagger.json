@@ -402,6 +402,13 @@
         },
         "message": {
           "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
         }
       }
     },
@@ -510,7 +517,7 @@
     "v1SubscriptionMaster": {
       "type": "object",
       "properties": {
-        "id": {
+        "subscriptionId": {
           "type": "string"
         },
         "subscriptionName": {

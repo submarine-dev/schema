@@ -5,11 +5,12 @@ package submarine_api.v1;
 option go_package = "submarine_api/v1";
 
 message SubscriptionMaster {
-    string id = 1;
+    string subscription_id = 1;
     // subscription_name はサブスクリプションの名前
     string subscription_name = 2;
     // icon はアイコンのリンク的な？
     string icon = 3;
+    
 }
 
 message GetSubscriptionsReplay {
