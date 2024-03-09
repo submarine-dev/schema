@@ -6,14 +6,13 @@ option go_package = "submarine_api/v1";
 
 import "google/api/annotations.proto";
 import "subscription/subscription.proto";
-import "requests/uid.proto";
 import "requests/subscription.proto";
 import "google/protobuf/empty.proto";
 import "response/subscription.proto";
 
 service SubscriptionService {
     // GetSubscriptions はアプリに対応しているサブスクリプションをすべて返す
-    rpc GetSubscriptions(UserID) returns (GetSubscriptionsReplay) {
+    rpc GetSubscriptions(GetSubscriptionsRequest) returns (GetSubscriptionsReplay) {
         option (google.api.http) = {
             get: "/subscriptions"
         };

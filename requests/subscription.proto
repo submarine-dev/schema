@@ -20,3 +20,8 @@ message CreateSubscriptionRequest {
     string unsubscribe_link = 4;
     repeated PlanRequest plans = 5;
 }
+
+message GetSubscriptionsRequest {
+    int32 results = 1;
+    string user_id = 2;
+}

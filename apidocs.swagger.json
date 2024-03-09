@@ -39,8 +39,14 @@
         },
         "parameters": [
           {
+            "name": "results",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "userId",
-            "description": "user_id はユーザの固有ID",
             "in": "query",
             "required": false,
             "type": "string"
@@ -527,6 +533,10 @@
         "icon": {
           "type": "string",
           "title": "icon はアイコンのリンク的な？"
+        },
+        "color": {
+          "type": "string",
+          "title": "color is subscriptios background color"
         }
       }
     },

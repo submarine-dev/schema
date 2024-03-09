@@ -10,7 +10,8 @@ message SubscriptionMaster {
     string subscription_name = 2;
     // icon はアイコンのリンク的な？
     string icon = 3;
-    
+    // color is subscriptios background color
+    string color = 4;
 }
 
 message GetSubscriptionsReplay {
